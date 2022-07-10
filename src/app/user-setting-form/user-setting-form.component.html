@@ -13,6 +13,17 @@
         #nameField="ngModel"
         [class.field-error]="form.submitted && nameField.invalid"
       />
+      <button
+        type="button"
+        class="btn btn-primary"
+        [(ngModel)]="singleModel"
+        btnCheckbox
+        name="singleModel"
+        btnCheckboxTrue="On"
+        btnCheckboxFalse="Off"
+      >
+        {{ singleModel }}
+      </button>
       <div
         [hidden]="!form.submitted || nameField.valid"
         class="alert alert-danger"
@@ -24,6 +35,34 @@
       <!-- minlength="3" -->
       <!-- pattern="B.*" -->
     </div>
+    <div class="form-group">
+      <label for="startDate">Start Date</label>
+      <input
+        type="text"
+        class="form-control"
+        placeholder="Start Date"
+        name="startDate"
+        id="startDate"
+        [(ngModel)]="startDate"
+        bsDatepicker
+      />
+    </div>
+
+
+
+    <div class="form-group">
+      <label for="startTime">Start Time</label>
+      <timepicker [(ngModel)]="startTime" name="startTime" id="startTime"></timepicker>
+    </div>
+
+
+    <div class="form-group">
+      User Rating
+      <rating [(ngModel)]="userRating" [max]="max" [readonly]="isReadonly" name="userRating" id="userRating"
+      (onHover)="hoveringOver($event)" (onLeave)="resetStar()"
+      [titles]="['one','two','three']"></rating>
+    </div>
+
     <div class="form-check form-group">
       <input
         class="form-check-input"
@@ -37,40 +76,38 @@
       </label>
     </div>
     <h5>User Interface Style</h5>
-    <div class="form-check">
-      <input
-        class="form-check-input"
-        type="radio"
-        name="interfaceStyle"
-        value="light"
-        id="lightInterface"
-        [(ngModel)]="userSettings.interfaceStyle"
-      />
-      <label class="form-check-label" for="lightInterface"> Light </label>
+    <div class="form-group">
+      <div class="btn-group">
+        <label
+          class="btn btn-primary"
+          [(ngModel)]="userSettings.interfaceStyle"
+          name="interfaceStyle"
+          btnRadio="Light"
+          tabindex="0"
+          role="button"
+          >Light</label
+        >
+        <label
+          class="btn btn-primary"
+          [(ngModel)]="userSettings.interfaceStyle"
+          name="interfaceStyle"
+          btnRadio="Medium"
+          tabindex="0"
+          role="button"
+          >Medium</label
+        >
+        <label
+          class="btn btn-primary"
+          [(ngModel)]="userSettings.interfaceStyle"
+          name="interfaceStyle"
+          btnRadio="Dark"
+          tabindex="0"
+          role="button"
+          >Dark</label
+        >
+      </div>
     </div>
-    <div class="form-check">
-      <input
-        class="form-check-input"
-        type="radio"
-        name="interfaceStyle"
-        value="medium"
-        id="mediumInterface"
-        [(ngModel)]="userSettings.interfaceStyle"
-      />
-      <label class="form-check-label" for="mediumInterface"> Medium </label>
-    </div>
-    <div class="form-check">
-      <input
-        class="form-check-input"
-        type="radio"
-        name="interfaceStyle"
-        value="dark"
-        id="darkInterface"
-        checked
-        [(ngModel)]="userSettings.interfaceStyle"
-      />
-      <label class="form-check-label" for="darkInterface"> Dark </label>
-    </div>
+
     <div class="form-group">
       <label for="SubscriptionType">Subscription Type</label>
       <select
@@ -80,8 +117,7 @@
         name="SubscriptionType"
         [(ngModel)]="userSettings.SubscriptionType"
       >
-        <option *ngFor="let type of subTypes | async">{{type}}</option>
-
+        <option *ngFor="let type of subTypes | async">{{ type }}</option>
       </select>
     </div>
 
@@ -96,8 +132,7 @@
         [(ngModel)]="userSettings.notes"
       ></textarea>
     </div>
-    <div [hidden]="!postError"
-    class="alert alert-danger">
+    <div [hidden]="!postError" class="alert alert-danger">
       {{ postErrorMessage }}
     </div>
     <button class="btn btn-primary">Send</button>
