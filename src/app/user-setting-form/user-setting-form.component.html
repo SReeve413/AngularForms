@@ -13,8 +13,10 @@
         #nameField="ngModel"
         [class.field-error]="form.submitted && nameField.invalid"
       />
-      <div [hidden]="!form.submitted || nameField.valid"
-      class="alert alert-danger">
+      <div
+        [hidden]="!form.submitted || nameField.valid"
+        class="alert alert-danger"
+      >
         Enter a name
       </div>
       <!-- {{ test.valid }} -->
@@ -78,9 +80,8 @@
         name="SubscriptionType"
         [(ngModel)]="userSettings.SubscriptionType"
       >
-        <option>Monthly</option>
-        <option>Annual</option>
-        <option>Lifetime</option>
+        <option *ngFor="let type of subTypes | async">{{type}}</option>
+
       </select>
     </div>
 
@@ -95,7 +96,10 @@
         [(ngModel)]="userSettings.notes"
       ></textarea>
     </div>
-
+    <div [hidden]="!postError"
+    class="alert alert-danger">
+      {{ postErrorMessage }}
+    </div>
     <button class="btn btn-primary">Send</button>
   </form>
 </div>
